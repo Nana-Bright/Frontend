@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Check if user is an admin
+    const isAdmin = localStorage.getItem("adminLoggedIn");
+
+    // Get the current page URL
+    const currentPage = window.location.pathname;
+
+    // If user is NOT an admin and they try to access admin.html, redirect them
+    if (!isAdmin && currentPage.includes("admin.html")) {
+        alert("Access Denied! Admins only.");
+        window.location.href = "/"; // Redirect to homepage or login page
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     var form = document.querySelector('form');
     form.addEventListener("submit", function (event) {
         var name = document.getElementById('name').value;
@@ -14,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+// Check if user is an admin before allowing access
+
 document.addEventListener("DOMContentLoaded", function () {
     var heroSection = document.getElementById("hero");
 
@@ -162,4 +178,25 @@ async function updateStatus(id, status) {
 
 fetchAppointments();
 fetch("https://https://appointments-lx1a.onrender.com/appointments")
+function adminLogin() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    fetch("https://your-backend-url.com/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.token) {
+            localStorage.setItem("adminToken", data.token);
+            alert("Login successful!");
+            window.location.href = "admin.html"; // Redirect to admin panel
+        } else {
+            alert("Invalid credentials!");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
 
