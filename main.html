@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Consulting Firm</title>
+    <title>WB Consults | Your Geosolution specialists</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
     <!-- AOS Library CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -21,7 +21,9 @@
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#appointments">Appointments</a></li>
+                <li><a href="#appointment">Appointments</a></li>
+                <li id="adminLogin"><a href="admin-login.html">Admin Login</a></li>
+                <li id="adminLink" style="display: none;"><a href="admin.html">Admin</a></li>
             </ul>
         </nav>
     </header>
@@ -210,39 +212,18 @@
         </div>
     </div>
 </section>
-<section id="admin-dashboard">
-    <div class="container">
-        <h2>Admin Dashboard</h2>
-        <p>Manage all appointment bookings here.</p>
 
-        <table id="appointments-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Service</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Appointments will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-</section>
-<div id="admin-login">
-    <h2>Admin Login</h2>
-    <input type="password" id="admin-password" placeholder="Enter Admin Password">
-    <button onclick="checkLogin()">Login</button>
-</div>
+<li id="adminLink" style="display: none;"><a href="admin.html">Admin</a></li>
 
-<div id="dashboard-content" style="display: none;">
-    <!-- The dashboard will be shown after login -->
-    <h2>Welcome, Admin</h2>
-    <button onclick="logout()">Logout</button>
-</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const isAdmin = localStorage.getItem("adminToken");
+
+        if (isAdmin) {
+            document.getElementById("adminLink").style.display = "block"; // Show Admin Link
+        }
+    });
+</script>
 
     </main>
 
@@ -257,6 +238,17 @@
    <script>
     AOS.init(); // Initialize AOS
    </script>
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const isAdmin = localStorage.getItem("adminToken"); // Check if admin is logged in
+
+        if (isAdmin) {
+            document.getElementById("adminLink").style.display = "block"; // Show Admin Link
+            document.getElementById("adminLogin").style.display = "none"; // Hide login button
+
+        }
+    });
+</script>
 
 </body>
 
