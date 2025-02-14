@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+     <link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <!-- Admin Content (Hidden by Default) -->
+    <div id="admin-content" style="display: none;">
+        <h1>Welcome, Admin</h1>
+        <p>This is your dashboard.</p>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const isAdmin = localStorage.getItem("adminToken");
+
+    if (isAdmin === "true") { 
+        document.getElementById("admin-content").style.display = "block"; // Show dashboard
+    } else {
+        window.location.href = "index.html"; // Redirect to home if not logged in
+    }
+});
+
+// Logout functionality
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("adminToken"); // Remove session
+    window.location.href = "main.html"; // Redirect to home
+});
+
+    </script>
+
+</body>
+</html>
